@@ -67,7 +67,7 @@ body {
 }
 
 .main {
-    background-image: url("/img/background.png");
+    background-image: url("../img/background.png");
     min-height: 705px;
     background-position: center;
     background-size: cover;
