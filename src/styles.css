@@ -6,12 +6,12 @@
 
 @font-face {
     font-family: Roboto;
-    src: url("../fonts/Roboto.ttf");
+    src: url("/src/assets/fonts/Roboto.ttf");
 }
 
 @font-face {
     font-family: Roboto;
-    src: url("../fonts/Robotobold.ttf");
+    src: url("/src/assets/fonts/Robotobold.ttf");
     font-weight: bold;
 }
 
@@ -25,6 +25,7 @@ body {
     padding-bottom: 25px;
     position: sticky;
     top: 0;
+    z-index: 100;
     background-color: #FFFFFF;
 }
 
@@ -67,7 +68,7 @@ body {
 }
 
 .main {
-    background-image: url("../img/background.png");
+    background-image: url("../src/assets/img/background.png");
     background-repeat: no-repeat;
     min-height: 705px;
     background-position: center;
@@ -112,9 +113,15 @@ body {
     transition: background-color .5s;
 }
 
-.button-form:hover {
+.button-form:hover:not(:disabled) {
     cursor: pointer;
     background: #575757;
+}
+
+.button-form:disabled{
+    cursor: not-allowed;
+    color: gray;
+    background-color: #343434;
 }
 
 .car {
@@ -267,4 +274,12 @@ body {
     line-height: 18px;
     text-align: right;
     color: #030305;
+}
+
+.price-input.ng-touched.ng-valid{
+  border: 1px solid #00ff22   
+}
+
+.price-input.ng-touched.ng-invalid{
+    border: 1px solid #ff0000   
 }
