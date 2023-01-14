@@ -68,10 +68,10 @@ body {
 
 .main {
     background-image: url("../img/background.png");
+    background-repeat: no-repeat;
     min-height: 705px;
     background-position: center;
     background-size: cover;
-    padding: 100px 0 50px 0;
 }
 
 .main-info {
@@ -136,8 +136,13 @@ body {
     justify-content: space-between;
 }
 
+.car-item-img:hover img {
+    vertical-align: bottom;
+    transform: scale(1.05);
+}
 .car-item-img img {
     vertical-align: bottom;
+    transition: all .3s;
 }
 
 .car-item {
@@ -221,6 +226,13 @@ body {
     line-height: 130%;
     color: #000000;
     outline: none;
+    transition: all .5s;
+
+}
+
+.price-input-alert {
+    transition: all .5s;
+    border: 2px solid red;
 }
 
 .price-input::placeholder {
