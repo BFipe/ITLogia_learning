@@ -1,6 +1,7 @@
 import {Component, HostListener} from '@angular/core';
 import { Scroll } from '@angular/router';
 import { Validators, FormGroup, FormControl} from '@angular/forms';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,61 +11,33 @@ import { Validators, FormGroup, FormControl} from '@angular/forms';
 export class AppComponent {
   title = 'Аренда автомобилей';
 
+constructor(private appService: AppService){
+}
   priceForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern(/^[A-ZА-Я][a-zа-я]{2,}$|^[A-ZА-Я][a-zа-я]{2,}\s[A-ZА-Я][a-zа-я]{2,}$/)]),
     phone: new FormControl('', [Validators.required, Validators.pattern(/^\+*\d{12}$/)]),
     car: new FormControl('', Validators.required),
   });
 
-  carsData = [
-    {
-      image : "1.png",
-      name : "Lamborghini Huracan Spyder",
-      gear : "Полный",
-      engine : 5.2,
-      seat: 2
-    },
-    {
-      image : "2.png",
-      name : "Chevrolet Corvette",
-      gear : "Полный",
-      engine : 6.2,
-      seat: 2
-    },
-    {
-      image : "3.png",
-      name : "Ferrari California",
-      gear : "Полный",
-      engine : 3.9,
-      seat: 4
-    },
-    {
-      image : "4.png",
-      name : "Lamborghini Urus",
-      gear : "Полный",
-      engine : 4.0,
-      seat: 5
-    },
-    {
-      image : "5.png",
-      name : "Audi R8",
-      gear : "Полный",
-      engine : 5.2,
-      seat: 2
-    },
-    {
-      image : "6.png",
-      name : "Chevrolet Camaro",
-      gear : "Полный",
-      engine : 2.0,
-      seat: 4
-    },
-  ];
+
+  carsData : any;
+
+  ngOnInit(){
+    this.appService.getCarsData().subscribe(data => this.carsData = data);
+  }
 
   onSubmit(){
     if(this.priceForm.valid){
-      alert("Спасибо за заявку, с вами свяжутся в ближайшее время!");
-      this.priceForm.reset();
+    this.appService.sendQuery(this.priceForm.value).subscribe(
+      {
+        next: (response : any) => {
+          alert(response.message);
+          this.priceForm.reset();
+        },
+        error: (responce) => {
+          alert(responce.error.message);
+        }
+      });
     }
   }
 
